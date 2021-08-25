@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snowman</title>
+</head>
+<body>
+    <canvas id="canvas" width="200" height="200"></canvas>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+        let canvas = document.getElementById("canvas");
+        let ctx = canvas.getContext("2d");
+
+        function circle(x, y, radius, filled) {
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+            if (filled) ctx.fill();
+            else ctx.stroke();
+        }
+        function drawSnowman(x, y) {
+            circle(x, y, 20, false);
+            circle(x, y-36, 16, false);
+            circle(x, y, 3, true);
+            circle(x, y+15, 3, true);
+            circle(x, y-15, 3, true);
+            circle(x-10, y-38, 3, true);
+            circle(x+10, y-38, 3, true);
+            ctx.fillStyle = "red";
+            circle(x, y-25, 4, true);
+        }
+
+        let x = prompt("X: ");
+        let y = prompt("Y: ");
+        drawSnowman(+x, +y);
+    </script>
+</body>
+</html>

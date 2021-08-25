@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive programming</title>
+</head>
+<body>
+    <h1 id="heading">Hello world!</h1>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+            let x = 0; let y = 0; let dx = 1; let dy = 0;
+            let counter = 0;
+            let speed = 1;
+            function moveHeading() {
+                x += dx * speed;
+                y += dy * speed;
+
+                if (x >= 200 && dx === 1){
+                    dx = 0;
+                    dy = 1;
+                }
+                if (y >= 200 && dy === 1){
+                    dx = -1;
+                    dy = 0;
+                }
+                if (x <= 0 && dx === -1){
+                    dx = 0;
+                    dy = -1;
+                }
+                if (y <= 0 && dy === -1){
+                    dx = 1;
+                    dy = 0;
+                }
+                $("#heading").offset({
+                    left: x,
+                    top: y
+                });
+            }
+            let intervalMs = 50;
+            let intervalId = 0;
+            function runAnimation() {
+                intervalId = setInterval(moveHeading, intervalMs);
+                // intervalMs /= 2;
+                speed *= 2;
+                $("#heading").text(counter);
+                counter++;
+            }
+            runAnimation();
+
+            $("#heading").click(() => {
+                if (intervalId === 0) {
+                    runAnimation();
+                } else {
+                    clearInterval(intervalId);
+                    intervalId = 0;
+                }
+            });
+    </script>
+</body>
+</html>
